@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber URL Scanner</title>
+    <link rel="stylesheet" href="static/css/style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Cyber URL Scanner</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#features">Features</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="scanner">
+            <h2>URL Scanner</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <input type="text" name="url" placeholder="Enter URL..." required>
+                <button type="submit">Scan</button>
+            </form>
+        </section>
+
+        {% if result %}
+        <section id="scan-result">
+            <h2>🔍 Scan Result</h2>
+            <div class="result-card">
+                <p><strong>🌐 URL:</strong> <span>{{ result.url }}</span></p>
+                <p><strong>🚨 Status:</strong> <span
+                        class="{% if 'High Risk' in result.status %}danger{% elif 'Medium Risk' in result.status %}warning{% else %}safe{% endif %}">{{
+                        result.status }}</span></p>
+                <p><strong>📢 Details:</strong> {{ result.details }}</p>
+                <p><strong>📡 IP Address:</strong> {{ result.ip }}</p>
+                <p><strong>🔒 SSL Status:</strong> {{ result.ssl_status.status }} (Issuer: {{ result.ssl_status.issuer
+                    }})</p>
+                <h3>🌍 Domain Information</h3>
+                <p><strong>🏛️ Registrar:</strong> {{ result.domain_info.Registrar }}</p>
+                <p><strong>📍 Country:</strong> {{ result.domain_info.Country }}</p>
+                <p><strong>📆 Creation Date:</strong> {{ result.domain_info.Creation_Date|join:", " }}</p>
+            </div>
+        </section>
+        {% endif %}
+
+
+
+
+        <section id="about">
+            <h2>About</h2>
+            <p>Cyber URL Scanner is an advanced tool for analyzing website security. Using the latest cybersecurity
+                technologies, we offer comprehensive URL scanning to detect potential threats.</p>
+            <p>Our tool was created by cybersecurity experts to provide users with the ability to check website security
+                before visiting them. In the face of growing online threats, Cyber URL Scanner serves as the first line
+                of defense against malware, phishing, and other cyberattacks.</p>
+            <p>Scanning takes place in real time, providing immediate results and detailed security analysis of the
+                tested site. With an intuitive interface, the tool is accessible to both IT professionals and ordinary
+                internet users.</p>
+        </section>
+        <section id="features">
+            <h2>Features</h2>
+            <div class="features-container">
+                <div class="feature-card">
+                    <h3>Malware Analysis</h3>
+                    <p>Detection of malicious code, scripts, and infections on the scanned site that may threaten user
+                        security.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Phishing Detection</h3>
+                    <p>Identification of sites impersonating known services to extract personal or financial data.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Tracking Scripts Analysis</h3>
+                    <p>Detection of user tracking technologies, analytical scripts, and other elements monitoring online
+                        activity.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Vulnerability Scanning</h3>
+                    <p>Identification of potential security vulnerabilities that can be exploited by attackers for
+                        unauthorized access.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Path Fuzzing</h3>
+                    <p>Automatic testing of popular URL paths to detect hidden admin panels, login pages, and other
+                        sensitive access points.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Detailed Reports</h3>
+                    <p>Generation of comprehensive scan reports containing detailed information about detected threats
+                        and security recommendations.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Cyber URL Scanner</h3>
+                <p>Professional website security analysis tool. Scan, detect, secure.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#features">Features</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect</h3>
+                <ul>
+                    <li><a href="#">Follow on X</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2025 CyScan.io. All rights reserved.</p>
+    </footer>
+    <script src="static/js/script.js"></script>
+</body>
+
+</html>
